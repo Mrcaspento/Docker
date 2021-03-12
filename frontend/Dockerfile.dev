@@ -3,8 +3,9 @@ FROM node:alpine
 WORKDIR '/app'
 
 COPY package.json .
+#First start by copinging over the package.json to the container
 RUN npm install
-
+#then we run the install INSIDE THE CONTAINER
 COPY . .
-
+#^^Takes the all folders ("Public", "src") and copys them into the `WORKDIR "/app"` directory
 CMD ["npm","run","start"]
