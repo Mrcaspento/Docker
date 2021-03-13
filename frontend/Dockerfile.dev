@@ -8,3 +8,5 @@ RUN npm install
 COPY . .
 #^^Takes the all folders ("Public", "src") and copys them into the `WORKDIR "/app"` directory
 CMD ["npm", "run", "start"]
+
+## We us this file to run a travis test suite

@@ -42,6 +42,7 @@ make sure you dont have any of your containers running on that port you can alwa
 - `docker run -it -p <portId>:<portId> <Image_ID>` : allows docker to run the container in interactive mode:
 - `docker run -p <portId>:<portId> <Image_ID>`
 - `docker run -it -p <portId>:<portId> -v /app/node_modules -v$(pwd):/app <image_id>`
+- `docker run <containerID> npm run test` : Executes testing of the application
 
 ## How to Find Exit Codes
 
