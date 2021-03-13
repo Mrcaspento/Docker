@@ -85,6 +85,8 @@ make sure you dont have any of your containers running on that port you can alwa
 - Then move on to the next step of creating a file named `Dockerfile.dev` in the root file of the React app
 - use the template below as a guide
 
+---
+
 ## 2. Dockerfile.dev template
 
 ```Dockerfile
@@ -103,3 +105,9 @@ CMD ["npm", "run", "start"]
 ```
 
 ---
+
+## 3. Create a docker-compose.yml
+
+In the root file of your react app create a file `docker-compose.yml`
+
+-
