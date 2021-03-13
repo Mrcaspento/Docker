@@ -81,7 +81,7 @@ make sure you dont have any of your containers running on that port you can alwa
 
 - First start by creating a folder where you would want your root directory at
 - Open up your CLI and type `npx create-react-app <appNameYouChoose> `
-- Once finished run `npm run build`
+- Once finished run `npm run build` to create a production version of the application
 - Then move on to the next step of creating a file named `Dockerfile.dev` in the root file of the React app
 - use the template below as a guide
 
@@ -110,4 +110,27 @@ CMD ["npm", "run", "start"]
 
 In the root file of your react app create a file `docker-compose.yml`
 
--
+```yml
+version: "3"
+services:
+  web:
+  stdin_open: true
+  environment: -CHOKIDAR_USEPOLLING=true
+  build:
+    context: .
+    dockerfile: Dockerfile.dev
+
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+```
+
+# IMPORTANT TO KNOW ^^^
+
+`spacing, spelling and punctuation are extremmly important in a yml file`
+
+## 4. Delpoy the app through docker
+
+- All you need to do is open the command line and type `docker-compose up`
