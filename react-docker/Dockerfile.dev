@@ -1,10 +1,14 @@
+#FROM
 FROM node:alpine
 
+#WORKDIR
 WORKDIR '/app'
-
+#COPY
 COPY package.json .
+#RUN
 RUN npm install
-
+#COPY
 COPY . .
-#^^Takes the all folders ("Public", "src") and copys them into the `WORKDIR "/app"` directory
+
+#CMD
 CMD ["npm", "run", "start"]

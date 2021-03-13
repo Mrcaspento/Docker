@@ -1,3 +1,16 @@
+# Deploying your react app on to the Doccker container
+
+make sure you run a `npm run build` before you use the docker cli
+then
+`docker build -f Dockerfile.dev .`
+after creating the image procced to creating a container inside of the image
+
+## Note React App Exits Immediately with Docker Run Command
+
+Due to a recent update in the Create React App library, we will need to change how we start our containers.
+
+`docker run -it -p <portId>:<portId> <image_ID>`
+
 # React update guides for errors
 
 ---

@@ -39,5 +39,67 @@ make sure you dont have any of your containers running on that port you can alwa
 - `docker-compose ps `
 - `docker build -f Dockerfile.dev .`
 - `docker run -it -p 3000:3000 `
-- `docker run -it -p <portId>:<portId> <Image_ID>`
+- `docker run -it -p <portId>:<portId> <Image_ID>` : allows docker to run the container in interactive mode:
 - `docker run -p <portId>:<portId> <Image_ID>`
+- `docker run -it -p <portId>:<portId> -v /app/node_modules -v$(pwd):/app <image_id>`
+
+## How to Find Exit Codes
+
+- List all containers that exited
+  `docker ps --filter "status=exited"`
+- Exit Code 0: Absence of an attached foreground process
+- Exit Code 1: Indicates failure due to application error
+- Exit Code 137: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])
+- Exit Code 139: Indicates failure as container received SIGSEGV
+- Exit Code 143: Indicates failure as container received SIGTERM
+- Exit Code 0
+- Exit code 0 indicates that the specific container does not have a foreground process attached.
+  - This exit code is the exception to all the other exit codes to follow. It does not necessarily mean something bad happened.
+    Developers use this exit code if they want to automatically stop their container once it has completed its job.
+
+---
+
+### Exit code 0
+
+- Exit code 0 indicates that the specific container does not have a foreground process attached.
+- This exit code is the exception to all the other exit codes to follow. It does not necessarily mean something bad happened.
+- Developers use this exit code if they want to automatically stop their container once it has completed its job.
+
+---
+
+### Exit code 1
+
+- Indicates that the container stopped due to either an application error or an incorrect reference in Dockerfile to a file that is not present in the container.
+- An application error can be as simple as “divide by 0” or as complex as “Reference to a bean name that conflicts with existing, non-compatible bean definition of same name and class.”
+- An incorrect reference in Dockerfile to a file not present in the container can be as simple as a typo (the example below has sample.ja instead of sample.jar)
+
+---
+
+# Creating and deploying a interactive React app with Docker
+
+## 1. Create a React app
+
+- First start by creating a folder where you would want your root directory at
+- Open up your CLI and type `npx create-react-app <appNameYouChoose> `
+- Once finished run `npm run build`
+- Then move on to the next step of creating a file named `Dockerfile.dev` in the root file of the React app
+- use the template below as a guide
+
+## 2. Dockerfile.dev template
+
+```Dockerfile
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]
+
+```
+
+---
