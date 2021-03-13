@@ -135,3 +135,9 @@ services:
 ## 4. Delpoy the app through docker
 
 - All you need to do is open the command line and type `docker-compose up`
+
+---
+
+# Elastic Bean Stalk
+
+Good for only running one container
