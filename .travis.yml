@@ -1,0 +1,23 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build unusualcaspento/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true unusualcaspento/react-test npm test
+
+after_success:
+  - docker build -t unusualcaspento/multi-client ./client
+  - docker build -t unusualcaspento/multi-nginx ./nginx
+  - docker build -t unusualcaspento/multi-server ./server
+  - docker build -t unusualcaspento/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID"
+  - password-stdin
+  - docker push unusualcaspento/multi-client
+  - docker push unusualcaspento/multi-nginx
+  - docker push unusualcaspento/multi-server
+  - docker push unusualcaspento/multi-worker
