@@ -19,3 +19,5 @@ COPY --from=0 /app/build /usr/share/nginx/html
 
 ## when you want to deploy the production app Run `docker build .`
 ## Important to know the default port nginx run is "80"
+## after running "docker build ." if you didnt add a tag to the image take the image_id and paste in the script 
+#`docker run - p <portId>:80 <image_ID>
